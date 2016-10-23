@@ -16,6 +16,8 @@
 # limitations under the License.
 #
 #
+
+
 import hmac
 import random
 import string
@@ -53,6 +55,8 @@ class UserDAO:
 
         user = None
         try:
+            user = self.users.find_one({'_id' : username})
+            #user = self.users.find({'$and': [{'_id':username},{'password':password}]})
             # XXX HW 2.3 Students Work Here
             # you will need to retrieve right document from the users collection.
             print "This space intentionally left blank."
@@ -82,6 +86,7 @@ class UserDAO:
             user['email'] = email
 
         try:
+            self.users.insert_one(user)
             # XXX HW 2.3 Students work here
             # You need to insert the user into the users collection.
             # Don't over think this one, it's a straight forward insert.
@@ -96,5 +101,3 @@ class UserDAO:
             return False
 
         return True
-
-
